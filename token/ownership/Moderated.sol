@@ -59,6 +59,6 @@ contract Moderated is Ownable {
   }
 
   function hasModerator() returns(bool) {
-      return (moderator == address(0));
+      return (moderator != address(0));
   }
 }

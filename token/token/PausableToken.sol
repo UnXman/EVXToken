@@ -14,7 +14,7 @@ contract PausableToken is StandardToken, Pausable {
   mapping(address => bool) freezed;
 
   function isFreezed(address _addr) returns (bool){
-      return freezed[_addr] && !hasModerator();
+      return freezed[_addr] && hasModerator();
   }
 
   function freeze(address _addr) onlyModerator {
@@ -31,7 +31,7 @@ contract PausableToken is StandardToken, Pausable {
     return super.transfer(_to, _value);
   }
 
-  function transferFrom(address _from, address _to, uint256 _value) onlyModerator whenNotPaused returns (bool) {
+  function transferFrom(address _from, address _to, uint256 _value) onlyModerator returns (bool) {
     return super.transferFrom(_from, _to, _value);
   }
 }
