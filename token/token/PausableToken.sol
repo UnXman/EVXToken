@@ -11,11 +11,27 @@ import '../lifecycle/Pausable.sol';
 
 contract PausableToken is StandardToken, Pausable {
 
+  mapping(address => bool) freezed;
+
+  function isFreezed(address _addr) returns (bool){
+      return freezed[_addr] && !hasModerator();
+  }
+
+  function freeze(address _addr) onlyModerator {
+      freezed[_addr] = true;
+  }
+
+  function unfreeze(address _addr) onlyModerator {
+      freezed[_addr] = false;
+  }
+
   function transfer(address _to, uint256 _value) whenNotPaused returns (bool) {
+    require(!isFreezed(msg.sender));
+    require(!isFreezed(_to));
     return super.transfer(_to, _value);
   }
 
-  function transferFrom(address _from, address _to, uint256 _value) whenNotPaused returns (bool) {
+  function transferFrom(address _from, address _to, uint256 _value) onlyModerator whenNotPaused returns (bool) {
     return super.transferFrom(_from, _to, _value);
   }
 }
