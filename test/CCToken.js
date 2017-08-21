@@ -1,7 +1,7 @@
 'use strict';
 const assertJump = require('./helpers/assertJump');
 
-var CCToken = artifacts.require('../token/CCToken.sol');
+var CCToken = artifacts.require('../contracts/CCToken.sol');
 
 contract('CCToken', function(accounts) {
   let cctoken;

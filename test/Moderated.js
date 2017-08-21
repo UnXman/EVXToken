@@ -1,7 +1,7 @@
 'use strict';
 const assertJump = require('./helpers/assertJump');
 
-var Moderated = artifacts.require('../token/ownership/Moderated.sol');
+var Moderated = artifacts.require('../contracts/ownership/Moderated.sol');
 
 contract('Moderated', function(accounts) {
   let moderated;
