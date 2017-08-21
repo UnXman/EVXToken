@@ -4,7 +4,7 @@ const assertJump = require('./helpers/assertJump');
 var Moderated = artifacts.require('../token/ownership/Moderated.sol');
 
 contract('Moderated', function(accounts) {
-  var moderated;
+  let moderated;
 
   before(async function() {
     moderated = await Moderated.new();
@@ -63,18 +63,5 @@ contract('Moderated', function(accounts) {
     let hasModerator = await moderated.hasModerator.call();
     assert.isFalse(hasModerator);
   });
-
-/*
-  it('only moderator can do transfer', async function() {
-    let owner = await moderated.owner();
-
-    try {
-      await moderated.transferFrom(accounts[1], accounts[2], 200000, {from: owner});
-      assert.fail('should have thrown before');
-    } catch(error) {
-      assertJump(error);
-    }
-  });
-*/
 
 });
