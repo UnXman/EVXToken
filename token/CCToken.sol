@@ -15,8 +15,8 @@ contract CCToken is PausableToken, Destructible {
    * @dev Contructor that gives msg.sender all of existing tokens. 
    */
   function CCToken(uint256 _initialSupply) {
-    totalSupply = initialSupply;
-    balances[msg.sender] = initialSupply;
+    totalSupply = _initialSupply;
+    balances[msg.sender] = _initialSupply;
   }
 }
 
