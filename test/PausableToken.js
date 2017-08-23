@@ -63,10 +63,19 @@ contract('PausableToken', function(accounts) {
     }
   });
 
-  it('should throw an error trying to transfer from another account while transactions are paused', async function() {
+  it('only moderator should be able to transfer while transactions are paused', async function() {
     await token.pause();
+
+    await token.transferFrom(accounts[0], accounts[1], 100);
+
+    let balance0 = await token.balanceOf(accounts[0]);
+    assert.equal(balance0, 0);
+
+    let balance1 = await token.balanceOf(accounts[1]);
+    assert.equal(balance1, 100);
+
     try { 
-      await token.transferFrom(accounts[0], accounts[1], 100);
+      await token.transferFrom(accounts[1], accounts[2], 100, {from: accounts[1]});
       assert.fail('should have thrown before');
     } catch (error) {
       assertJump(error);

@@ -41,20 +41,17 @@ contract('CCToken', function(accounts) {
     }
 
     let ownerBalance = await cctoken.balanceOf(owner);
-    //console.log(ownerBalance.toString(10));
-    assert.isTrue(ownerBalance.toString(10) == 25000000);
+    assert.equal(ownerBalance, 25000000);
 
     // transfer 2000 to accounts[2]
     await cctoken.transferFrom(accounts[0], accounts[2], 2000, {from: moderator});
 
     // check balances
     let ownerBalanceAfter = await cctoken.balanceOf(owner);
-    //console.log(ownerBalanceAfter.toString(10));
-    assert.isTrue(ownerBalanceAfter.toString(10) == 24998000);
+    assert.equal(ownerBalanceAfter, 24998000);
 
     let acc2Balance = await cctoken.balanceOf(accounts[2]);
-    //console.log(acc2Balance.toString(10));
-    assert.isTrue(acc2Balance.toString(10) == 2000);
+    assert.equal(acc2Balance, 2000);
   });
 
 });
