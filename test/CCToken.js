@@ -7,7 +7,7 @@ contract('CCToken', function(accounts) {
   let cctoken;
 
   before(async function() {
-    cctoken = await CCToken.new();
+    cctoken = await CCToken.new(25000000);
   });
 
   it('should change moderator', async function() {
@@ -34,17 +34,27 @@ contract('CCToken', function(accounts) {
     assert.isTrue(moderator !== owner);
 
     try {
-      await cctoken.transferFrom(accounts[1], accounts[2], 200000, {from: owner});
+      await cctoken.transferFrom(accounts[1], accounts[2], 2000, {from: owner});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
     }
 
-    /*console.log(accounts[1]);
-    let bal1 = web3.eth.getBalance(accounts[1]);//await cctoken.balanceOf(accounts[1]);
-    console.log(bal1.toString(10));*/
+    let ownerBalance = await cctoken.balanceOf(owner);
+    //console.log(ownerBalance.toString(10));
+    assert.isTrue(ownerBalance.toString(10) == 25000000);
 
-    //await cctoken.transferFrom(accounts[1], accounts[2], 200000, {from: moderator});
+    // transfer 2000 to accounts[2]
+    await cctoken.transferFrom(accounts[0], accounts[2], 2000, {from: moderator});
+
+    // check balances
+    let ownerBalanceAfter = await cctoken.balanceOf(owner);
+    //console.log(ownerBalanceAfter.toString(10));
+    assert.isTrue(ownerBalanceAfter.toString(10) == 24998000);
+
+    let acc2Balance = await cctoken.balanceOf(accounts[2]);
+    //console.log(acc2Balance.toString(10));
+    assert.isTrue(acc2Balance.toString(10) == 2000);
   });
 
 });
