@@ -2,7 +2,6 @@
 
 const assertJump = require('./helpers/assertJump');
 var PausableTokenMock = artifacts.require('./helpers/PausableTokenMock.sol');
-
 var PausableToken = artifacts.require('../contracts/token/PausableToken.sol');
 
 contract('PausableToken', function(accounts) {
@@ -63,7 +62,7 @@ contract('PausableToken', function(accounts) {
     }
   });
 
-  it('only moderator should be able to transfer while transactions are paused', async function() {
+  it('only moderator should be able to transfer from while transactions are paused', async function() {
     await token.pause();
 
     await token.transferFrom(accounts[0], accounts[1], 100);

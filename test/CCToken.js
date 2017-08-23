@@ -28,7 +28,7 @@ contract('CCToken', function(accounts) {
     assert.isTrue(approvedModerator === other);
   });
 
-  it('only moderator can do transfer', async function() {
+  it('only moderator can do transfer from', async function() {
     let owner = await cctoken.owner();
     let moderator = await cctoken.moderator();
     assert.isTrue(moderator !== owner);
@@ -52,6 +52,33 @@ contract('CCToken', function(accounts) {
 
     let acc2Balance = await cctoken.balanceOf(accounts[2]);
     assert.equal(acc2Balance, 2000);
+  });
+
+  it('only moderator or owner can pause', async function() {
+    let owner = await cctoken.owner();
+    let moderator = await cctoken.moderator();
+    assert.isTrue(moderator !== owner);
+
+    try {
+      await cctoken.pause({from: accounts[2]});
+      assert.fail('should have thrown before');
+    } catch(error) {
+      assertJump(error);
+    }
+
+    await cctoken.pause({from: owner});
+    let paused1 = await cctoken.paused();
+    assert.equal(paused1, true);
+    await cctoken.unpause({from: owner});
+    let paused2 = await cctoken.paused();
+    assert.equal(paused2, false);
+
+    await cctoken.pause({from: moderator});
+    let paused3 = await cctoken.paused();
+    assert.equal(paused3, true);
+    await cctoken.unpause({from: moderator});
+    let paused4 = await cctoken.paused();
+    assert.equal(paused4, false);
   });
 
 });
