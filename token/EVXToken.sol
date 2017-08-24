@@ -4,9 +4,9 @@ import './token/PausableToken.sol';
 import './lifecycle/Destructible.sol';
 
 /**
- * CCToken
+ * EVXToken
  **/
-contract CCToken is PausableToken, Destructible {
+contract EVXToken is PausableToken, Destructible {
   string public constant name = "Everex";
   string public constant symbol = "EVX";
   uint256 public constant decimals = 4;
@@ -14,7 +14,7 @@ contract CCToken is PausableToken, Destructible {
   /**
    * @dev Contructor that gives msg.sender all of existing tokens. 
    */
-  function CCToken(uint256 _initialSupply) {
+  function EVXToken(uint256 _initialSupply) {
     totalSupply = _initialSupply;
     balances[msg.sender] = _initialSupply;
   }
