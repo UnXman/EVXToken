@@ -11,7 +11,8 @@ contract('Destructible', function(accounts) {
     let initBalance = web3.eth.getBalance(owner);
     await destructible.destroy({from: owner});
     let newBalance = web3.eth.getBalance(owner);
-    assert.isTrue(newBalance > initBalance);
+    //assert.isTrue(newBalance.toString(10) > initBalance.toString(10));
+    assert.isTrue(newBalance.greaterThan(initBalance));
   });
 
   it('should send balance to recepient after destruction', async function() {
