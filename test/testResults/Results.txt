@@ -1,0 +1,67 @@
+Contract: BasicToken
+✓ should return the correct totalSupply after construction (110ms)
+✓ should return correct balances after transfer (201ms)
+✓ should throw an error when trying to transfer more than balance (106ms)
+
+Contract: CCToken
+✓ should change moderator (316ms)
+✓ only moderator can do transfer from (266ms)
+✓ only moderator or owner can pause (399ms)
+✓ only moderator can freeze (148ms)
+✓ should prevent transfer from freezed address (117ms)
+✓ should prevent transfer to freezed address (219ms)
+✓ moderator can transfer from and to freeze address (237ms)
+✓ owner can not transfer from and to freeze address (132ms)
+✓ should allow transfer for freezed address when moderator removed (224ms)
+
+Contract: Destructible
+✓ should send balance to owner after destruction (1175ms)
+✓ should send balance to recepient after destruction (1099ms)
+
+Contract: Moderated
+✓ should moderator == owner after creation (52ms)
+✓ should change moderator (175ms)
+✓ should prevent non-moderator from changing moderator (106ms)
+✓ only owner can remove moderator (131ms)
+
+Contract: Ownable
+✓ should have an owner 
+✓ changes owner after transfer (111ms)
+✓ should prevent non-owners from transfering (62ms)
+✓ should guard ownership against stuck state (47ms)
+
+Contract: Pausable
+✓ can perform normal process in non-pause (202ms)
+✓ can not perform normal process in pause (163ms)
+✓ can not take drastic measure in non-pause (111ms)
+✓ can take a drastic measure in a pause (164ms)
+✓ should resume allowing normal process after pause is over (179ms)
+✓ should prevent drastic measure after pause is over (194ms)
+
+Contract: PausableToken
+✓ should return paused false after construction 
+✓ should return paused true after pause (106ms)
+✓ should return paused false after pause and unpause (175ms)
+✓ should be able to transfer if transfers are unpaused (146ms)
+✓ should be able to transfer after transfers are paused and unpaused (214ms)
+✓ should throw an error trying to transfer while transactions are paused (132ms)
+✓ only moderator should be able to transfer from while transactions are paused (201ms)
+
+Contract: SafeMath
+✓ multiplies correctly (54ms)
+✓ adds correctly (68ms)
+✓ subtracts correctly (65ms)
+✓ should throw an error if subtraction result would be negative 
+✓ should throw an error on addition overflow 
+✓ should throw an error on multiplication overflow 
+
+Contract: StandardToken
+✓ should return the correct totalSupply after construction 
+✓ should return correct balances after transfer (199ms)
+✓ should throw an error when trying to transfer more than balance (65ms)
+
+
+
+44 tests TOTAL
+44 SUCCESSFUL
+0 FAILED
