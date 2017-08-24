@@ -1,1 +1,1 @@
-# CCToken
+# EVX Token
