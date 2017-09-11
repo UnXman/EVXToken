@@ -1,12 +1,12 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.12;
 
-import './token/PausableToken.sol';
-import './lifecycle/Destructible.sol';
+import './token/evxPausableToken.sol';
+import '../OpenZeppelin/contracts/lifecycle/Destructible.sol';
 
 /**
  * EVXToken
  **/
-contract EVXToken is PausableToken, Destructible {
+contract EVXToken is evxPausableToken, Destructible {
   string public constant name = "Everex";
   string public constant symbol = "EVX";
   uint256 public constant decimals = 4;

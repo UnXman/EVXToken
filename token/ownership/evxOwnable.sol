@@ -1,32 +1,15 @@
 pragma solidity ^0.4.11;
 
+import "../../OpenZeppelin/contracts/ownership/Ownable.sol";
 
 /**
- * @title Ownable
- * @dev The Ownable contract has an owner address, and provides basic authorization control
+ * @title evxOwnable
+ * @dev The evxOwnable contract has an owner address, and provides basic authorization control
  * functions, this simplifies the implementation of "user permissions".
  */
-contract Ownable {
-  address public owner;
+contract evxOwnable is Ownable {
+
   address public newOwner;
-
-
-  /**
-   * @dev The Ownable constructor sets the original `owner` of the contract to the sender
-   * account.
-   */
-  function Ownable() {
-    owner = msg.sender;
-  }
-
-
-  /**
-   * @dev Throws if called by any account other than the owner.
-   */
-  modifier onlyOwner() {
-    require(msg.sender == owner);
-    _;
-  }
 
   /**
    * @dev Allows the current owner to transfer control of the contract to an otherOwner.
@@ -42,6 +25,7 @@ contract Ownable {
    */
   function approveOwnership() {
     require(msg.sender == newOwner);
+    OwnershipTransferred(owner, newOwner);
     owner = newOwner;
   }
 }

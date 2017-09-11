@@ -1,7 +1,9 @@
 pragma solidity ^0.4.11;
 
+import "../../OpenZeppelin/contracts/token/StandardToken.sol";
+
 import './StandardToken.sol';
-import '../lifecycle/Pausable.sol';
+import '../lifecycle/evxPausable.sol';
 
 /**
  * Pausable token
@@ -9,7 +11,7 @@ import '../lifecycle/Pausable.sol';
  * Simple ERC20 Token example, with pausable token creation
  **/
 
-contract PausableToken is StandardToken, Pausable {
+contract evxPausableToken is StandardToken, evxPausable {
 
   mapping(address => bool) freezed;
 

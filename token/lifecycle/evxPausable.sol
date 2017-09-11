@@ -1,36 +1,14 @@
 pragma solidity ^0.4.11;
 
-
+import "../../OpenZeppelin/contracts/lifecycle/Pausable.sol";
 import "../ownership/Moderated.sol";
 
 
 /**
- * @title Pausable
+ * @title evxPausable
  * @dev Base contract which allows children to implement an emergency stop mechanism.
  */
-contract Pausable is Moderated {
-  event Pause();
-  event Unpause();
-
-  bool public paused = false;
-
-
-  /**
-   * @dev modifier to allow actions only when the contract IS paused
-   */
-  modifier whenNotPaused() {
-    require(!paused);
-    _;
-  }
-
-  /**
-   * @dev modifier to allow actions only when the contract IS NOT paused
-   */
-  modifier whenPaused() {
-    require(paused);
-    _;
-  }
-
+contract evxPausable is Pausable, Moderated {
   /**
    * @dev called by the owner to pause, triggers stopped state
    */

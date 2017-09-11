@@ -1,11 +1,11 @@
 pragma solidity ^0.4.11;
 
 
-import '../../contracts/lifecycle/Pausable.sol';
+import '../../contracts/lifecycle/evxPausable.sol';
 
 
-// mock class using Pausable
-contract PausableMock is Pausable {
+// mock class using evxPausable
+contract PausableMock is evxPausable {
   bool public drasticMeasureTaken;
   uint256 public count;
 

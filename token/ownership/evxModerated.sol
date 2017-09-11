@@ -1,12 +1,12 @@
 pragma solidity ^0.4.11;
 
-import "./Ownable.sol";
+import "./evxOwnable.sol";
 
 /**
  * @title Moderated
  * @dev Moderator can make transfers from and to any account (including frozen).
  */
-contract Moderated is Ownable {
+contract evxModerated is evxOwnable {
 
   address public moderator;
   address public newModerator;
