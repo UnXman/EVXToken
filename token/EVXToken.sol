@@ -5,7 +5,7 @@ import './token/evxToken.sol';
 /**
  * EVXToken
  **/
-contract EVXToken is evxToken {
+contract EVXToken is evxModeratedToken {
   string public constant name = "Everex";
   string public constant symbol = "EVX";
   uint256 public constant decimals = 4;

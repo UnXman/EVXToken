@@ -7,7 +7,7 @@ import '../lifecycle/evxPausable.sol';
  * Pausable token with moderator role and freeze address implementation
  *
  **/
-contract evxToken is StandardToken, evxPausable {
+contract evxModeratedToken is StandardToken, evxPausable {
 
   mapping(address => bool) freezed;
 
