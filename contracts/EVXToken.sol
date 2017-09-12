@@ -1,6 +1,6 @@
-pragma solidity ^0.4.16;
+pragma solidity ^0.4.15;
 
-import './token/evxToken.sol';
+import './token/evxModeratedToken.sol';
 
 /**
  * EVXToken

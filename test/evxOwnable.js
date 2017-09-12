@@ -1,13 +1,13 @@
 'use strict';
 const assertJump = require('./helpers/assertJump');
 
-var Ownable = artifacts.require('../contracts/ownership/Ownable.sol');
+var evxOwnable = artifacts.require('../contracts/ownership/evxOwnable.sol');
 
-contract('Ownable', function(accounts) {
+contract('evxOwnable', function(accounts) {
   let ownable;
 
   beforeEach(async function() {
-    ownable = await Ownable.new();
+    ownable = await evxOwnable.new();
   });
 
   it('should have an owner', async function() {
@@ -16,12 +16,15 @@ contract('Ownable', function(accounts) {
   });
 
   it('changes owner after transfer', async function() {
+    let initial = accounts[0];
     let other = accounts[1];
 
     // transfer ownership
     await ownable.transferOwnership(other);
     let newOwner = await ownable.newOwner();
+    let owner = await ownable.owner();
     assert.isTrue(newOwner === other);
+    assert.isTrue(owner === initial);
 
     // approve ownership
     await ownable.approveOwnership({from: other});

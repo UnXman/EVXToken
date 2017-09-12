@@ -28,13 +28,13 @@ contract('EVXToken', function(accounts) {
     assert.isTrue(approvedModerator === other);
   });
 
-  it('only moderator can do transfer from', async function() {
+  it('only moderator can do moderatorTransferFrom', async function() {
     let owner = await evxtoken.owner();
     let moderator = await evxtoken.moderator();
     assert.isTrue(moderator !== owner);
 
     try {
-      await evxtoken.transferFrom(accounts[1], accounts[2], 2000, {from: owner});
+      await evxtoken.moderatorTransferFrom(accounts[1], accounts[2], 2000, {from: owner});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
@@ -44,7 +44,7 @@ contract('EVXToken', function(accounts) {
     assert.equal(ownerBalance, 25000000);
 
     // transfer 2000 to accounts[2]
-    await evxtoken.transferFrom(accounts[0], accounts[2], 2000, {from: moderator});
+    await evxtoken.moderatorTransferFrom(accounts[0], accounts[2], 2000, {from: moderator});
 
     // check balances
     let ownerBalanceAfter = await evxtoken.balanceOf(owner);
@@ -107,7 +107,7 @@ contract('EVXToken', function(accounts) {
     assert.equal(acc2Balance, 2000);
 
     try {
-      await evxtoken.transferFrom(accounts[2], accounts[3], 100, {from: accounts[2]});
+      await evxtoken.transfer(accounts[3], 100, {from: accounts[2]});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
@@ -131,7 +131,7 @@ contract('EVXToken', function(accounts) {
     assert.equal(acc2Balance, 2000);
 
     try {
-      await evxtoken.transferFrom(accounts[0], accounts[2], 100, {from: owner});
+      await evxtoken.transfer(accounts[0], accounts[2], 100, {from: owner});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
@@ -162,14 +162,14 @@ contract('EVXToken', function(accounts) {
     let freezedBalance = await evxtoken.balanceOf(freezed);
     assert.equal(freezedBalance, 2000);
 
-    await evxtoken.transferFrom(freezed, accounts[4], 150, {from: moderator});
+    await evxtoken.moderatorTransferFrom(freezed, accounts[4], 150, {from: moderator});
     // check balances
     let freezedBalanceAfter = await evxtoken.balanceOf(freezed);
     assert.equal(freezedBalanceAfter, 1850);
     let acc4Balance = await evxtoken.balanceOf(accounts[4]);
     assert.equal(acc4Balance, 150);
 
-    await evxtoken.transferFrom(accounts[0], freezed, 40, {from: moderator});
+    await evxtoken.moderatorTransferFrom(accounts[0], freezed, 40, {from: moderator});
     // check balances
     let freezedBalanceAfter2 = await evxtoken.balanceOf(freezed);
     assert.equal(freezedBalanceAfter2, 1890);
@@ -183,14 +183,14 @@ contract('EVXToken', function(accounts) {
     assert.isTrue(isFreezed);
 
     try {
-      await evxtoken.transferFrom(accounts[0], freezed, 100, {from: owner});
+      await evxtoken.transfer(freezed, 100, {from: owner});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
     }
 
     try {
-      await evxtoken.transferFrom(freezed, accounts[1], 100, {from: owner});
+      await evxtoken.moderatorTransferFrom(freezed, accounts[1], 100, {from: owner});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
@@ -215,6 +215,27 @@ contract('EVXToken', function(accounts) {
     assert.equal(freezedBalanceAfter, 1790);
     let acc6Balance = await evxtoken.balanceOf(accounts[6]);
     assert.equal(acc6Balance, 100);
+  });
+
+  it('Only moderator can unfreeze address', async function() {
+    let owner = await evxtoken.owner();
+    let moderator = await evxtoken.moderator();
+    let freezed = accounts[2];
+
+    let isFreezed = await evxtoken.isFreezed.call(freezed);
+    assert.isTrue(isFreezed);
+
+    try {
+      await evxtoken.unfreeze(freezed, {from: owner});
+      assert.fail('should have thrown before');
+    } catch(error) {
+      assertJump(error);
+    }
+
+    await evxtoken.unfreeze(freezed, {from: moderator});
+
+    let isFreezed = await evxtoken.isFreezed.call(freezed);
+    assert.isTrue(!isFreezed);
   });
 
 });

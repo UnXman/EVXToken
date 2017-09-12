@@ -1,13 +1,13 @@
 'use strict';
 const assertJump = require('./helpers/assertJump');
 
-var Moderated = artifacts.require('../contracts/ownership/Moderated.sol');
+var evxModerated = artifacts.require('../contracts/ownership/evxModerated.sol');
 
-contract('Moderated', function(accounts) {
+contract('evxModerated', function(accounts) {
   let moderated;
 
   before(async function() {
-    moderated = await Moderated.new();
+    moderated = await evxModerated.new();
   });
 
   it('should moderator == owner after creation', async function() {
