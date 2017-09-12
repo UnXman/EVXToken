@@ -1,4 +1,4 @@
-pragma solidity ^0.4.12;
+pragma solidity ^0.4.17;
 
 import './token/evxPausableToken.sol';
 import '../OpenZeppelin/contracts/lifecycle/Destructible.sol';
