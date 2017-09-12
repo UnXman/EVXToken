@@ -28,7 +28,7 @@ contract('evxOwnable', function(accounts) {
 
     // approve ownership
     await ownable.approveOwnership({from: other});
-    let owner = await ownable.owner();
+    owner = await ownable.owner();
     assert.isTrue(owner === other);
   });
 
