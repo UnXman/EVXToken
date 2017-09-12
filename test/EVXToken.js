@@ -234,7 +234,7 @@ contract('EVXToken', function(accounts) {
 
     await evxtoken.unfreeze(freezed, {from: moderator});
 
-    let isFreezed = await evxtoken.isFreezed.call(freezed);
+    isFreezed = await evxtoken.isFreezed.call(freezed);
     assert.isTrue(!isFreezed);
   });
 
