@@ -30,7 +30,7 @@ contract evxModerated is evxOwnable {
   /**
    * @dev Moderator same as owner
    */
-  function Moderated(){
+  function evxModerated(){
     moderator = msg.sender;
   }
 
