@@ -81,7 +81,7 @@ contract('StandardToken', function(accounts) {
     it('should increase by 50 then decrease by 10', async function() {
       await token.increaseApproval(accounts[1], 50);
       let postIncrease = await token.allowance(accounts[0], accounts[1]);
-        assert.equal(postIncrease, 50);
+      assert.equal(postIncrease, 50);
       await token.decreaseApproval(accounts[1], 10);
       let postDecrease = await token.allowance(accounts[0], accounts[1]);
       assert.equal(postDecrease, 40);
