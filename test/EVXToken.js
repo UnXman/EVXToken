@@ -197,6 +197,30 @@ contract('EVXToken', function(accounts) {
     }
   });
 
+  it('Only moderator can unfreeze address', async function() {
+    let owner = await evxtoken.owner();
+    let moderator = await evxtoken.moderator();
+    let freezed = accounts[2];
+
+    let isFreezed = await evxtoken.isFreezed.call(freezed);
+    assert.isTrue(isFreezed);
+
+    try {
+      await evxtoken.unfreeze(freezed, {from: owner});
+      assert.fail('should have thrown before');
+    } catch(error) {
+      assertJump(error);
+    }
+
+    await evxtoken.unfreeze(freezed, {from: moderator});
+    isFreezed = await evxtoken.isFreezed.call(freezed);
+    assert.isTrue(!isFreezed);
+
+    await evxtoken.freeze(freezed, {from: moderator});
+    isFreezed = await evxtoken.isFreezed.call(freezed);
+    assert.isTrue(isFreezed);
+  });
+
   it('should allow transfer for freezed address when moderator removed', async function() {
     let owner = await evxtoken.owner();
     let freezed = accounts[2];
@@ -215,27 +239,6 @@ contract('EVXToken', function(accounts) {
     assert.equal(freezedBalanceAfter, 1790);
     let acc6Balance = await evxtoken.balanceOf(accounts[6]);
     assert.equal(acc6Balance, 100);
-  });
-
-  it('Only moderator can unfreeze address', async function() {
-    let owner = await evxtoken.owner();
-    let moderator = await evxtoken.moderator();
-    let freezed = accounts[2];
-
-    let isFreezed = await evxtoken.isFreezed.call(freezed);
-    assert.isTrue(isFreezed);
-
-    try {
-      await evxtoken.unfreeze(freezed, {from: owner});
-      assert.fail('should have thrown before');
-    } catch(error) {
-      assertJump(error);
-    }
-
-    await evxtoken.unfreeze(freezed, {from: moderator});
-
-    isFreezed = await evxtoken.isFreezed.call(freezed);
-    assert.isTrue(!isFreezed);
   });
 
 });
