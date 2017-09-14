@@ -1,6 +1,5 @@
 'use strict';
-const assertJump = require('./helpers/assertJump');
-
+const assertJump = require('../OpenZeppelin/test/helpers/assertJump');
 var EVXToken = artifacts.require('../contracts/EVXToken.sol');
 
 contract('EVXToken', function(accounts) {
