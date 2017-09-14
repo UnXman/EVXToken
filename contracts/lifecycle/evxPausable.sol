@@ -13,13 +13,15 @@ contract evxPausable is Pausable, evxModerated {
    * @dev called by the owner or moderator to pause, triggers stopped state
    */
   function pause() onlyOwnerOrModerator whenNotPaused {
-    super.pause();
+    paused = true;
+    Pause();
   }
 
   /**
    * @dev called by the owner or moderator to unpause, returns to normal state
    */
   function unpause() onlyOwnerOrModerator whenPaused {
-    super.unpause();
+    paused = false;
+    Unpause();
   }
 }

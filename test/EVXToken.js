@@ -130,7 +130,7 @@ contract('EVXToken', function(accounts) {
     assert.equal(acc2Balance, 2000);
 
     try {
-      await evxtoken.transfer(accounts[0], accounts[2], 100, {from: owner});
+      await evxtoken.transfer(accounts[2], 100, {from: owner});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
