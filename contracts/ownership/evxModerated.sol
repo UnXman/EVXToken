@@ -58,7 +58,7 @@ contract evxModerated is evxOwnable {
       moderator = address(0);
   }
 
-  function hasModerator() returns(bool) {
+  function hasModerator() constant returns(bool) {
       return (moderator != address(0));
   }
 }

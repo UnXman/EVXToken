@@ -15,7 +15,7 @@ contract evxModeratedToken is StandardToken, evxPausable {
    * @dev Check if given address is freezed. Freeze works only if moderator role is active
    * @param _addr address Address to check
    */
-  function isFreezed(address _addr) returns (bool){
+  function isFreezed(address _addr) constant returns (bool){
       return freezed[_addr] && hasModerator();
   }
 
