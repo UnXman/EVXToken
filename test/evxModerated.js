@@ -61,6 +61,9 @@ contract('evxModerated', function(accounts) {
     await moderated.removeModeratorship({from: owner});
     let hasModerator = await moderated.hasModerator.call();
     assert.isFalse(hasModerator);
+
+    let newModerator = await moderated.newModerator();
+    assert.isTrue(newModerator == 0);
   });
 
 });
