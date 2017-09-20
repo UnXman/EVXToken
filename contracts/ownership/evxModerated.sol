@@ -48,6 +48,7 @@ contract evxModerated is evxOwnable {
   function approveModeratorship() {
     require(msg.sender == newModerator);
     moderator = newModerator;
+    newModerator = address(0);
   }
 
   /**

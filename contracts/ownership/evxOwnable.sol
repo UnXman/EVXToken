@@ -27,5 +27,6 @@ contract evxOwnable is Ownable {
     require(msg.sender == newOwner);
     OwnershipTransferred(owner, newOwner);
     owner = newOwner;
+    newOwner = address(0);
   }
 }
