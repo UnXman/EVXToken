@@ -9,13 +9,16 @@ contract EVXToken is evxModeratedToken {
   string public constant name = "Everex";
   string public constant symbol = "EVX";
   uint256 public constant decimals = 4;
+  uint256 public constant initialSupply = 250000000000;
 
   /**
    * @dev Contructor that gives msg.sender all of existing tokens. 
    */
-  function EVXToken(uint256 _initialSupply) {
-    totalSupply = _initialSupply;
-    balances[msg.sender] = _initialSupply;
+  function EVXToken() {
+    totalSupply = initialSupply;
+    balances[msg.sender] = initialSupply;
+    // Contract initializes in paused state
+    paused = true;
   }
 }
 
