@@ -466,9 +466,12 @@ contract EVXToken is evxModeratedToken {
   /**
    * @dev Contructor that gives msg.sender all of existing tokens. 
    */
-  function EVXToken() {
+  function EVXToken(uint256 _initialSupply) {   
+    if(_initialSupply > 0){
+        initialSupply = _initialSupply;
+    }
     totalSupply = initialSupply;
     balances[msg.sender] = initialSupply;
-    paused = true;
+    // paused = true;
   }
 }
