@@ -93,14 +93,14 @@ contract('EVXToken', function(accounts) {
     }
 
     await evxtoken.freeze(accounts[2], {from: moderator});
-    let isFreezed = await evxtoken.isFreezed.call(accounts[2]);
-    assert.isTrue(isFreezed);
+    let isFrozen = await evxtoken.isFrozen.call(accounts[2]);
+    assert.isTrue(isFrozen);
 
   });
 
-  it('should prevent transfer from freezed address', async function() {
-    let isFreezed = await evxtoken.isFreezed.call(accounts[2]);
-    assert.isTrue(isFreezed);
+  it('should prevent transfer from frozen address', async function() {
+    let isFrozen = await evxtoken.isFrozen.call(accounts[2]);
+    assert.isTrue(isFrozen);
 
     let acc2Balance = await evxtoken.balanceOf(accounts[2]);
     assert.equal(acc2Balance, 2000);
@@ -120,11 +120,11 @@ contract('EVXToken', function(accounts) {
     }
   });
 
-  it('should prevent transfer to freezed address', async function() {
+  it('should prevent transfer to frozen address', async function() {
     let owner = await evxtoken.owner();
     let moderator = await evxtoken.moderator();
-    let isFreezed = await evxtoken.isFreezed.call(accounts[2]);
-    assert.isTrue(isFreezed);
+    let isFrozen = await evxtoken.isFrozen.call(accounts[2]);
+    assert.isTrue(isFrozen);
 
     let acc2Balance = await evxtoken.balanceOf(accounts[2]);
     assert.equal(acc2Balance, 2000);
@@ -153,43 +153,43 @@ contract('EVXToken', function(accounts) {
 
   it('moderator can transfer from and to freeze address', async function() {
     let moderator = await evxtoken.moderator();
-    let freezed = accounts[2];
+    let frozen = accounts[2];
 
-    let isFreezed = await evxtoken.isFreezed.call(freezed);
-    assert.isTrue(isFreezed);
+    let isFrozen = await evxtoken.isFrozen.call(frozen);
+    assert.isTrue(isFrozen);
 
-    let freezedBalance = await evxtoken.balanceOf(freezed);
-    assert.equal(freezedBalance, 2000);
+    let frozenBalance = await evxtoken.balanceOf(frozen);
+    assert.equal(frozenBalance, 2000);
 
-    await evxtoken.moderatorTransferFrom(freezed, accounts[4], 150, {from: moderator});
+    await evxtoken.moderatorTransferFrom(frozen, accounts[4], 150, {from: moderator});
     // check balances
-    let freezedBalanceAfter = await evxtoken.balanceOf(freezed);
-    assert.equal(freezedBalanceAfter, 1850);
+    let frozenBalanceAfter = await evxtoken.balanceOf(frozen);
+    assert.equal(frozenBalanceAfter, 1850);
     let acc4Balance = await evxtoken.balanceOf(accounts[4]);
     assert.equal(acc4Balance, 150);
 
-    await evxtoken.moderatorTransferFrom(accounts[0], freezed, 40, {from: moderator});
+    await evxtoken.moderatorTransferFrom(accounts[0], frozen, 40, {from: moderator});
     // check balances
-    let freezedBalanceAfter2 = await evxtoken.balanceOf(freezed);
-    assert.equal(freezedBalanceAfter2, 1890);
+    let frozenBalanceAfter2 = await evxtoken.balanceOf(frozen);
+    assert.equal(frozenBalanceAfter2, 1890);
   });
 
   it('owner can not transfer from and to freeze address', async function() {
     let owner = await evxtoken.owner();
-    let freezed = accounts[2];
+    let frozen = accounts[2];
 
-    let isFreezed = await evxtoken.isFreezed.call(freezed);
-    assert.isTrue(isFreezed);
+    let isFrozen = await evxtoken.isFrozen.call(frozen);
+    assert.isTrue(isFrozen);
 
     try {
-      await evxtoken.transfer(freezed, 100, {from: owner});
+      await evxtoken.transfer(frozen, 100, {from: owner});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
     }
 
     try {
-      await evxtoken.moderatorTransferFrom(freezed, accounts[1], 100, {from: owner});
+      await evxtoken.moderatorTransferFrom(frozen, accounts[1], 100, {from: owner});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
@@ -199,43 +199,43 @@ contract('EVXToken', function(accounts) {
   it('Only moderator can unfreeze address', async function() {
     let owner = await evxtoken.owner();
     let moderator = await evxtoken.moderator();
-    let freezed = accounts[2];
+    let frozen = accounts[2];
 
-    let isFreezed = await evxtoken.isFreezed.call(freezed);
-    assert.isTrue(isFreezed);
+    let isFrozen = await evxtoken.isFrozen.call(frozen);
+    assert.isTrue(isFrozen);
 
     try {
-      await evxtoken.unfreeze(freezed, {from: owner});
+      await evxtoken.unfreeze(frozen, {from: owner});
       assert.fail('should have thrown before');
     } catch(error) {
       assertJump(error);
     }
 
-    await evxtoken.unfreeze(freezed, {from: moderator});
-    isFreezed = await evxtoken.isFreezed.call(freezed);
-    assert.isTrue(!isFreezed);
+    await evxtoken.unfreeze(frozen, {from: moderator});
+    isFrozen = await evxtoken.isFrozen.call(frozen);
+    assert.isTrue(!isFrozen);
 
-    await evxtoken.freeze(freezed, {from: moderator});
-    isFreezed = await evxtoken.isFreezed.call(freezed);
-    assert.isTrue(isFreezed);
+    await evxtoken.freeze(frozen, {from: moderator});
+    isFrozen = await evxtoken.isFrozen.call(frozen);
+    assert.isTrue(isFrozen);
   });
 
-  it('should allow transfer for freezed address when moderator removed', async function() {
+  it('should allow transfer for frozen address when moderator removed', async function() {
     let owner = await evxtoken.owner();
-    let freezed = accounts[2];
+    let frozen = accounts[2];
 
-    let isFreezed = await evxtoken.isFreezed.call(freezed);
-    assert.isTrue(isFreezed);
+    let isFrozen = await evxtoken.isFrozen.call(frozen);
+    assert.isTrue(isFrozen);
 
     // remove moderator
     await evxtoken.removeModeratorship({from: owner});
     let hasModerator = await evxtoken.hasModerator.call();
     assert.isFalse(hasModerator);
 
-    await evxtoken.transfer(accounts[6], 100, {from: freezed});
+    await evxtoken.transfer(accounts[6], 100, {from: frozen});
     // check balances
-    let freezedBalanceAfter = await evxtoken.balanceOf(freezed);
-    assert.equal(freezedBalanceAfter, 1790);
+    let frozenBalanceAfter = await evxtoken.balanceOf(frozen);
+    assert.equal(frozenBalanceAfter, 1790);
     let acc6Balance = await evxtoken.balanceOf(accounts[6]);
     assert.equal(acc6Balance, 100);
   });
