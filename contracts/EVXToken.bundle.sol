@@ -458,6 +458,7 @@ contract evxModeratedToken is StandardToken, evxPausable {
  * EVXToken
  **/
 contract EVXToken is evxModeratedToken {
+  string public constant version = "1.0";
   string public constant name = "Everex";
   string public constant symbol = "EVX";
   uint256 public constant decimals = 4;
