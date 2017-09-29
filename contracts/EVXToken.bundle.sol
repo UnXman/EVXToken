@@ -469,7 +469,7 @@ contract EVXToken is evxModeratedToken {
   uint256 public constant decimals = 4;
 
   /**
-   * @dev Contructor that gives msg.sender all of existing tokens. 
+   * @dev Constructor that gives msg.sender all of existing tokens. 
    */
   function EVXToken(uint256 _initialSupply) {   
     totalSupply = _initialSupply;
