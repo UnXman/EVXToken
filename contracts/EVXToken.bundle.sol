@@ -1,6 +1,11 @@
 pragma solidity ^0.4.13;
 
 /**
+* Everex Token Contract
+* Copyright © 2017 by Everex https://everex.io
+*/
+
+/**
  * @title ERC20Basic
  * @dev Simpler version of ERC20 interface
  * @dev see https://github.com/ethereum/EIPs/issues/179
@@ -458,7 +463,7 @@ contract evxModeratedToken is StandardToken, evxPausable {
  * EVXToken
  **/
 contract EVXToken is evxModeratedToken {
-  string public constant version = "1.0";
+  string public constant version = "1.0.0";
   string public constant name = "Everex";
   string public constant symbol = "EVX";
   uint256 public constant decimals = 4;
