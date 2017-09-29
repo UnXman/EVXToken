@@ -1,5 +1,6 @@
 pragma solidity ^0.4.13;
 
 /**
- * header
- **/
+* Everex Token Contract
+* Copyright © 2017 by Everex https://everex.io
+*/
